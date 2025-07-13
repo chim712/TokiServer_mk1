@@ -18,16 +18,16 @@ def detect_intent(text: str) -> str:
         messages=[
             {"role": "system", "content": """
                 AI Kiosk Server의 1차 모듈 역할이야.
-                사용자의 질문을 아래 3가지 중 하나로 분류해서 답해.
+                사용자의 질문을 아래 4가지 중 하나로 분류해서 답해.
                 해당하지 않으면 "보류"라고 답해.
-                ['결제'|'운영'|'메뉴']
+                ['결제'|'운영'|'메뉴'|'종료']
                 """},
             {"role": "user", "content": text}
         ],
         temperature=0.3
     )
 
-    result = response["choices"][0]["text"]
+    result = response.choices[0].message.content.strip()
     logger.info(f"1st LLM result: {result}")
 
     return result

@@ -1,8 +1,9 @@
 from fastapi import FastAPI
-from routers import session, chat, payment
+from app.routers import session, chat, payment
 
 app = FastAPI(title="AI Kiosk Server")
 
+# Set Routers
 app.include_router(session.router, prefix="/session", tags=["Session"])
 app.include_router(chat.router, prefix="/chat", tags=["Chat"])
 app.include_router(payment.router, prefix="/payment", tags=["Payment"])

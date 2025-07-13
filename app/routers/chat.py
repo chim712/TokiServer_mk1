@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from services import correction_service, llm1_service, llm2_service, payment_service
-from store.memory_store import get_session
+from app.services import correction_service, llm1_service, llm2_service, payment_service
+from app.store.memory_store import get_session
 from logger import logger
 
 router = APIRouter()
@@ -18,9 +18,12 @@ def chat(session_id: str, message: str):
     if intent == "반려":
         logger.info("ignore strange question")
         return {"response": "매장과 관련된 질문만 부탁드립니다."}
+    if intent == "종료":
+        logger.info("ignore strange question")
+        return {"response": "CloseChat"}
 
     logger.info("call LLM2 - Intent: " + intent)
-    response = llm2_service.generate_response(corrected, intent)
+    response = llm2_service.generate_response(session.history, corrected, intent)
 
     session.history.append({"role": "user", "content": corrected})
     session.history.append({"role": "assistant", "content": response})

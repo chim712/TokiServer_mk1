@@ -1,4 +1,4 @@
-from models.session_state import SessionState
+from app.models.session_state import SessionState
 from logger import logger
 
 _sessions = {}

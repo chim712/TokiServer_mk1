@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from utils.id_generator import generate_session_id
-from store.memory_store import save_session, end_session
+from app.utils.id_generator import generate_session_id
+from app.store.memory_store import save_session, end_session
 
 router = APIRouter()
 
